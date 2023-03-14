@@ -1,4 +1,4 @@
-# Dot_matrix_display
+# Led dot matrix display
 
 ![image](https://user-images.githubusercontent.com/124211946/225133129-61973818-4bff-4043-9a60-4ddfb9386160.png)
 
