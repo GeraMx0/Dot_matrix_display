@@ -10,6 +10,24 @@ Los LED Dot Matrix Display son comunes en aplicaciones que requieren una alta vi
 
 Existen varios tipos de LED Dot Matrix Display, que varían según el número de filas y columnas de LED que tienen, el tamaño de los LED, el color de la luz emitida (por ejemplo, rojo, verde, azul o multicolor), y la tecnología de control utilizada (por ejemplo, multiplexación, barrido estático, entre otros).
 
+ESPECIFICACIONES
+
+Tamaño de la pantalla: El tamaño de la pantalla puede variar desde unos pocos centímetros cuadrados hasta varios metros cuadrados. Los tamaños más comunes para uso doméstico son de alrededor de 8x8 o 16x16 píxeles.
+
+Resolución: La resolución se refiere al número de píxeles (LEDs) en la pantalla. Una pantalla de matriz de puntos LED típica puede tener una resolución de 8x8, 16x16, 32x32, 64x64 o incluso más.
+
+Brillo: El brillo de la pantalla se mide en unidades de candela por metro cuadrado (cd/m²) y puede variar según el modelo. Una pantalla de matriz de puntos LED típica tiene un brillo de alrededor de 500 a 2000 cd/m².
+
+Ángulo de visión: El ángulo de visión se refiere a la amplitud del ángulo desde el cual se puede ver la pantalla con claridad. Una pantalla de matriz de puntos LED típica puede tener un ángulo de visión de alrededor de 120 grados.
+
+Frecuencia de actualización: La frecuencia de actualización se refiere al número de veces que la pantalla se actualiza por segundo. Una pantalla de matriz de puntos LED típica puede tener una frecuencia de actualización de alrededor de 100 Hz.
+
+Color: Las pantallas de matriz de puntos LED pueden ser monocromáticas (generalmente rojas) o pueden ser capaces de mostrar múltiples colores. En el caso de las pantallas de color, el número de colores que pueden mostrar puede variar según el modelo.
+
+Controlador: Las pantallas de matriz de puntos LED suelen requerir un controlador para manejar la información que se muestra en la pantalla. El controlador puede ser integrado en la pantalla o puede ser un dispositivo separado conectado a la pantalla.
+
+Interfaz: Las pantallas de matriz de puntos LED suelen tener una interfaz de comunicación que permite que se conecten a otros dispositivos, como una placa controladora de microcontrolador. Las interfaces más comunes son I2C, SPI, UART, entre otras.
+
 VENTAJAS Y DESVENTAJAS
 
 Algunas de las ventajas de los LED Dot Matrix Display incluyen su bajo consumo de energía, su capacidad para mostrar información clara y legible incluso en condiciones de poca luz, y su durabilidad y larga vida útil. También son relativamente fáciles de programar y controlar, lo que los hace ideales para su uso en proyectos de electrónica y programación.
