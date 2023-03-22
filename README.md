@@ -47,3 +47,11 @@ La tecnología DMD comenzó a ganar popularidad en la década de 1970, cuando se
 En la década de 1980, los displays DMD se hicieron más comunes en los relojes digitales y otros dispositivos electrónicos de consumo. Los displays DMD también se convirtieron en un componente clave de los videojuegos arcade y las consolas de videojuegos, como el popular juego "Space Invaders".
 
 En la década de 1990, los displays DMD evolucionaron para convertirse en pantallas LED de matriz de puntos que podían mostrar una amplia gama de colores y resoluciones más altas. Hoy en día, los displays DMD se utilizan en una amplia variedad de aplicaciones, desde paneles publicitarios y de información en aeropuertos y estadios hasta pantallas de control en vehículos y maquinaria industrial.
+
+Módulo MAX7219 | Raspberry Pi Pico
+---------------|------------------
+VCC	| VBUS (5V)
+GND | GND
+DIN	| GP3 (SPI0_TX)
+CS | GP5 (SPI0_CSn)
+CLK | GP2 (SPI0_SCK)
