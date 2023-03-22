@@ -48,10 +48,126 @@ En la década de 1980, los displays DMD se hicieron más comunes en los relojes 
 
 En la década de 1990, los displays DMD evolucionaron para convertirse en pantallas LED de matriz de puntos que podían mostrar una amplia gama de colores y resoluciones más altas. Hoy en día, los displays DMD se utilizan en una amplia variedad de aplicaciones, desde paneles publicitarios y de información en aeropuertos y estadios hasta pantallas de control en vehículos y maquinaria industrial.
 
+# Raspberry Pi Pico con módulo de pantalla de matriz de puntos LED MAX7219
+
 Módulo MAX7219 | Raspberry Pi Pico
 ---------------|------------------
 VCC	| VBUS (5V)
 GND | GND
 DIN	| GP3 (SPI0_TX)
 CS | GP5 (SPI0_CSn)
-CLK | GP2 (SPI0_SCK)
+CLK | GP2 (SPI0_SCK)]
+
+![image](https://user-images.githubusercontent.com/124211946/227041692-1661f95a-6ad6-4f74-a29a-e47b3a900b5e.png)
+
+![image](https://user-images.githubusercontent.com/124211946/227041731-479d7b97-3dff-4cd9-9bce-b8edb8823560.png)
+
+# Instalación de la biblioteca MAX7219 MicroPython
+
+# max7219.py
+
+    from micropython import const
+    import framebuf
+
+    _NOOP = const(0)
+    _DIGIT0 = const(1)
+    _DECODEMODE = const(9)
+    _INTENSITY = const(10)
+    _SCANLIMIT = const(11)
+    _SHUTDOWN = const(12)
+    _DISPLAYTEST = const(15)
+
+    class Matrix8x8:
+    def __init__(self, spi, cs, num):
+        """
+        Driver for cascading MAX7219 8x8 LED matrices.
+        >>> import max7219
+        >>> from machine import Pin, SPI
+        >>> spi = SPI(1)
+        >>> display = max7219.Matrix8x8(spi, Pin('X5'), 4)
+        >>> display.text('1234',0,0,1)
+        >>> display.show()
+        """
+        self.spi = spi
+        self.cs = cs
+        self.cs.init(cs.OUT, True)
+        self.buffer = bytearray(8 * num)
+        self.num = num
+        fb = framebuf.FrameBuffer(self.buffer, 8 * num, 8, framebuf.MONO_HLSB)
+        self.framebuf = fb
+        # Provide methods for accessing FrameBuffer graphics primitives. This is a workround
+        # because inheritance from a native class is currently unsupported.
+        # http://docs.micropython.org/en/latest/pyboard/library/framebuf.html
+        self.fill = fb.fill  # (col)
+        self.pixel = fb.pixel # (x, y[, c])
+        self.hline = fb.hline  # (x, y, w, col)
+        self.vline = fb.vline  # (x, y, h, col)
+        self.line = fb.line  # (x1, y1, x2, y2, col)
+        self.rect = fb.rect  # (x, y, w, h, col)
+        self.fill_rect = fb.fill_rect  # (x, y, w, h, col)
+        self.text = fb.text  # (string, x, y, col=1)
+        self.scroll = fb.scroll  # (dx, dy)
+        self.blit = fb.blit  # (fbuf, x, y[, key])
+        self.init()
+
+    def _write(self, command, data):
+        self.cs(0)
+        for m in range(self.num):
+            self.spi.write(bytearray([command, data]))
+        self.cs(1)
+
+    def init(self):
+        for command, data in (
+            (_SHUTDOWN, 0),
+            (_DISPLAYTEST, 0),
+            (_SCANLIMIT, 7),
+            (_DECODEMODE, 0),
+            (_SHUTDOWN, 1),
+        ):
+            self._write(command, data)
+
+    def brightness(self, value):
+        if not 0 <= value <= 15:
+            raise ValueError("Brightness out of range")
+        self._write(_INTENSITY, value)
+
+    def show(self):
+        for y in range(8):
+            self.cs(0)
+            for m in range(self.num):
+                self.spi.write(bytearray([_DIGIT0 + y, self.buffer[(y * self.num) + m]]))
+            self.cs(1)
+            
+            
+# MAX7219 Dot Matrix mostrando textos
+
+    from machine import Pin, SPI
+    import max7219
+    from time import sleep
+
+    spi = SPI(0,sck=Pin(2),mosi=Pin(3))
+    cs = Pin(5, Pin.OUT)
+
+    display = max7219.Matrix8x8(spi, cs, 4)
+
+    display.brightness(10)
+
+    while True:
+
+    display.fill(0)
+    display.text('PICO',0,0,1)
+    display.show()
+    sleep(1)
+
+    display.fill(0)
+    display.text('1234',0,0,1)
+    display.show()
+    sleep(1)
+
+    display.fill(0)
+    display.text('done',0,0,1)
+    display.show()
+    sleep(1)
+    
+# Pruebas
+https://wokwi.com/projects/359848614347624449
